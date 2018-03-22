@@ -65,7 +65,7 @@ extern "C" {
 #endif
 
 
-extern void MakeJWT(char* p0);
+extern char* MakeJWT(char* p0);
 
 #ifdef __cplusplus
 }

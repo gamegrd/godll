@@ -24,11 +24,11 @@ void main()
     char MSG[]="123fdsa是我啊456";
     char pOut[0xFF];
     HINSTANCE hInst=LoadLibrary("jwtlib.dll");
-    typedef void (/*_stdcall*/ *pMakeJWT)(char* p0);
+    typedef char* (/*_stdcall*/ *pMakeJWT)(char* p0);
     pMakeJWT MakeJWT =(pMakeJWT)GetProcAddress(hInst,"MakeJWT");  
     gbk2utf8(pOut,MSG,sizeof(pOut));
-    MakeJWT(MSG);
-    printf(MSG);
+    char *jwtstr = MakeJWT(MSG);
+    printf(jwtstr);
     getchar();
 }
 

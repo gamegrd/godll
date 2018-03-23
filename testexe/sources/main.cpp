@@ -3,6 +3,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#pragma pack(1)
+typedef struct {
+  char  Accounts[0x51];
+  int   UserID;   
+  char  NickName[0x53];
+  int   GameID;   
+}tUser, *pUser;
+
 
 void gbk2utf8(char *utf8,char *gb2312,int buffer_len)
 {
@@ -24,11 +32,16 @@ void main()
     char MSG[]="123fdsa是我啊456";
     char pOut[0xFF];
     HINSTANCE hInst=LoadLibrary("jwtlib.dll");
-    typedef char* (/*_stdcall*/ *pMakeJWT)(char* p0);
+    typedef char* (*pMakeJWT)(char* p0);
+    typedef char* (*pMakeUserJWT)(pUser p0);
     pMakeJWT MakeJWT =(pMakeJWT)GetProcAddress(hInst,"MakeJWT");  
+      
     gbk2utf8(pOut,MSG,sizeof(pOut));
     char *jwtstr = MakeJWT(MSG);
     printf(jwtstr);
+
+    
+
     getchar();
 }
 
